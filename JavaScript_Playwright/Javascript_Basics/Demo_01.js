@@ -1,0 +1,20 @@
+var name = "Javascript";
+var age = 12;
+var isStudent = true;
+
+var firstName = "Training";
+var lastName = "Process";
+var fullName = firstName + " " + lastName;
+console.log(fullName);
+var a = 10;
+var b = 34;
+var sum = a + b;
+console.log(sum);
+var x = 10;
+var y = 15;
+var multiplication = x * y;
+console.log(multiplication);
+var length = 40;
+var width = 20;
+var perimeterOfTheRectangle = 2 * (length + width);
+console.log("Perimeter of the rectangle is ".concat(perimeterOfTheRectangle));
