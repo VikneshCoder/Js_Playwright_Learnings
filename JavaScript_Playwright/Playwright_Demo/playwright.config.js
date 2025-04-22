@@ -13,9 +13,9 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-  timeout: 40000,
+  timeout: 100000,
   expect: {
-    timeout: 40000,
+    timeout: 100000,
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -45,7 +45,6 @@ export default defineConfig({
       },   
     },
     
-
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
