@@ -70,6 +70,7 @@ test.only('Auto save failed', async ({ page }) => {
     await page.locator(`//mat-icon[normalize-space()='cancel']`).click();
     console.log("Health Concern gets removed")
 
+    await page.waitForTimeout(10000);
     // Scroll to the top
     await page.evaluate(() => {
       window.scrollTo(0, 0);
@@ -77,14 +78,15 @@ test.only('Auto save failed', async ({ page }) => {
   console.log('Page scrolled to top');  
  
     //wait idle till the auto save set config time without providing any input
-    await page.waitForTimeout(15000);
-    await page.pause();
+    await page.waitForTimeout(30000);
+    // await page.pause();
  
     // Verify the auto save is getting Failed.
     const failedText = await page.locator(`//span[@class='saved-time']`).textContent();
+    console.log(f`Auto save is failed and the test is ${failedText}`)
     if (failedText){
       expect(failedText).toContain(" Autosave failed. Recent changes have not been saved. ");
-      console.log("Auto save is failed successfull")
+      console.log("Auto save Failed test case is executed")
     }
     await page.pause();
 });
