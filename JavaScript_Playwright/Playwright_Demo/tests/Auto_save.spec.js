@@ -11,17 +11,17 @@ test('Assessment Auto save using QTL', async ({ page }) => {
  
       //Login using Credentials
       await page.locator(`//input[@name='identifier']`).isVisible({ timeout: 10000 });
-      await page.locator(`//input[@name='identifier']`).fill('Vikneshwaraj.M@VCA.com');
+      await page.locator(`//input[@name='identifier']`).fill('suvetha.soundarajan@vca.com');
       await page.locator(`//input[@value='Next']`).press('Enter');
       await page.waitForLoadState('domcontentloaded');
  
       await page.locator(`//input[@type='password']`).isVisible({ timeout: 10000 });
-      await page.locator(`//input[@type='password']`).fill('Phototest@1302');
+      await page.locator(`//input[@type='password']`).fill('MedicalRecord@1510');
       await page.locator(`//input[@value='Verify']`).press('Enter');
       await page.waitForLoadState('domcontentloaded');
  
       await page.locator(`//input[@name ='credentials.answer']`).isVisible({ timeout: 10000 });
-      await page.locator(`//input[@name ='credentials.answer']`).fill('Photographer');
+      await page.locator(`//input[@name ='credentials.answer']`).fill('Briyani');
       await page.locator(`//input[@data-type='save']`).press('Enter');
       await page.waitForLoadState('domcontentloaded');
  
