@@ -1,41 +1,17 @@
 import { test, expect } from '@playwright/test';
-
-const WAIT_FOR_PAGE_TIMEOUT = 30000;
+import Utilitis from '../tests/Utilits/Utilitis.js';
 
 async function login(page) {
-  await page.goto('https://devv2.voyager.marsvh.com/medical-records/medical-history?entId=900001&bId=800002&ouId=c18c8e67-9606-7c63-9eed-71c33a9a4898&petId=bba0b6a6-da7a-4e0b-a7b4-5c783dca280b&patientId=980ba393-f7f8-43b8-aad3-b502d7cda2cf&accountId=b820ec11-472b-4cac-bf0b-500ad35b67a1');
-  await page.waitForLoadState('domcontentloaded', { timeout: WAIT_FOR_PAGE_TIMEOUT });
-
-  // Login
-  await page.locator(`//input[@name='identifier']`).fill('suvetha.soundarajan@vca.com');
-  await page.locator(`//input[@value='Next']`).press('Enter');
-  await page.waitForLoadState('domcontentloaded', { timeout: WAIT_FOR_PAGE_TIMEOUT });
-
-  await page.locator(`//input[@type='password']`).fill('MedicalRecord@1510');
-  await page.locator(`//input[@value='Verify']`).press('Enter');
-  await page.waitForLoadState('domcontentloaded', { timeout: WAIT_FOR_PAGE_TIMEOUT });
-
-  await page.locator(`//input[@name ='credentials.answer']`).fill('Briyani');
-  await page.locator(`//input[@data-type='save']`).press('Enter');
-  await page.waitForLoadState('domcontentloaded', { timeout: WAIT_FOR_PAGE_TIMEOUT });
-}
-
-async function addMedicalNote(page) {
-  // Add Medical Note
-  await page.locator(`//span[text()=' ADD ']`).click();
-  await page.locator(`//button[text()=' Medical Note ']`).click();
-  await page.waitForLoadState('domcontentloaded', { timeout: WAIT_FOR_PAGE_TIMEOUT });
   
-  // Verify the exam note was added
-  const examNote = page.locator(`//span[text()='Exam Note']`);
-  await expect(examNote).toBeVisible();
-  console.log(`Exam Note is added`);
+  const medicalNote = new Utilitis();
+  await medicalNote.MedicalNoteNavigation(page);
+
 }
 
 async function addAssessment(page) {
-  // Scroll down the page
-  await page.evaluate(() => window.scrollBy(0, window.innerHeight));
-  console.log('Page scrolled down');
+  // // Scroll down the page
+  // await page.evaluate(() => window.scrollBy(0, window.innerHeight));
+  // console.log('Page scrolled down');
   
   // Wait for the assessment text and click
   const addAssessmentLocator = page.locator(`//h3[text()=' Add Assessment ']`);
@@ -59,22 +35,26 @@ async function addAssessment(page) {
 }
 
 async function openMedicalRecordTab(page) {
+
+  console.log(await page.url()); // Check what page you're on
+  await page.screenshot({ path: 'debug-click-fail.png', fullPage: true }); // Visual clue
+  
+  await page.waitForTimeout(15000);
   const element = page.locator('.medical-history-inner').first();
   await element.click();
-  console.log('First element clicked');
   
+  console.log('First element clicked');
+
   // Grab and verify the text content of the medical record
-  const grabbedTextContent = await page.locator('.medical-history-inner__content').textContent();
+  const grabbedTextContent = await page.locator('.medical-history-inner__content').first().textContent();
   console.log(`Grabbed text content: ${grabbedTextContent}`);
   
   const expectedContent = "A paragraph is a distinct section of written text that develops a single idea or point.";
   await expect(grabbedTextContent).toContain(expectedContent);
 }
 
-test('Assessment Auto save using QTL', async ({ page }) => {
+test.only('Assessment Auto save using QTL', async ({ page }) => {
   await login(page);
-  
-  await addMedicalNote(page);
 
   await addAssessment(page);
 
