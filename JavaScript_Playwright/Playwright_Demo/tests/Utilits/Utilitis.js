@@ -33,10 +33,10 @@ class Utilitis{
           await page.locator(`//input[@name ='credentials.answer']`).fill('keralam');
           await page.locator(`//input[@data-type='save']`).press('Enter');
 
-            //Add Medical Note
-            await page.waitForLoadState(`networkidle`);
-            await page.locator(`//span[text()=' ADD ']`).isVisible();
-            await page.locator(`//span[text()=' ADD ']`).click();
+          //Add Medical Note
+          await page.waitForLoadState(`networkidle`);
+          await page.locator(`//span[text()=' ADD ']`).isVisible();
+          await page.locator(`//span[text()=' ADD ']`).click();
           
           
           await expect(page.locator(`//button[text()=' Medical Note ']`)).toBeVisible();

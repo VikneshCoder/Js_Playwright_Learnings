@@ -1,8 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test} from '@playwright/test';
 import Utilitis from '../tests/Utilits/Utilitis.js';
  
  test.use({viewport : { width: 1366, height: 768 }});
-test.only('Assessment Auto save using QTL', async ({ page }) => {
+test('Assessment Auto save using QTL', async ({ page }) => {
     test.setTimeout(80000)
 
     const medicalNote = new Utilitis();

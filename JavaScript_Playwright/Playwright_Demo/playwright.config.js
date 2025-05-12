@@ -17,7 +17,7 @@ export default defineConfig({
   reporter: 'html',
 
   use: {
-    trace: 'on-first-retry',
+    trace: 'on-first-retry',  //ON, OFF
   },
 
   projects: [
@@ -31,7 +31,7 @@ export default defineConfig({
           args: [
             '--start-maximized',
             '--window-size=1366,768',
-            '--force-device-scale-factor=1',
+            '--force-device-scale-factor=0.75',  // Adjust the scale factor to 0.75 for 75% zoom
             '--high-dpi-support=1'
           ],
         },
