@@ -53,7 +53,7 @@ async function openMedicalRecordTab(page) {
   await expect(grabbedTextContent).toContain(expectedContent);
 }
 
-test.only('Assessment Auto save using QTL', async ({ page }) => {
+test('Assessment Auto save using QTL', async ({ page }) => {
   await login(page);
 
   await addAssessment(page);
