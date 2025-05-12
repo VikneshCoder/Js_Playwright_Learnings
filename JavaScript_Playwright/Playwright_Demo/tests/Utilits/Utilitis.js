@@ -8,10 +8,6 @@ class Utilitis{
         await page.goto("https://banfield-6001.qa2v2.voyager.marsvh.com/medical-records/medical-history?entId=900001&bId=800002&ouId=c18c8e67-9606-7c63-9eed-71c33a9a4898&petId=6dafeb77-a2fb-445e-8232-ba75a3d81efb&patientId=99f59687-ba10-4d50-ad87-e06013a4a964&accountId=772e03ee-624c-425b-b474-3e973ac06ffa");
         await page.waitForLoadState('networkidle');
         await page.waitForLoadState('domcontentloaded');
-        await page.evaluate(() => {
-          document.body.style.zoom = "75%";
-        });
-        
 
           //Login using Credentials
           await page.locator(`//input[@name='identifier']`).isVisible({ timeout: 10000 });
