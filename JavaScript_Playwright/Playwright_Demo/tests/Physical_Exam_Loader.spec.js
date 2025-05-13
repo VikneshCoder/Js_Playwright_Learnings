@@ -1,5 +1,5 @@
 import {test, request, expect} from '@playwright/test';
-import {Utilitis} from './Utilits/Utilitis.js';
+import Utilitis from '../tests/Utilits/Utilitis.js';
 
 
 
