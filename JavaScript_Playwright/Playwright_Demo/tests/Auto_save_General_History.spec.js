@@ -1,12 +1,17 @@
-import { test} from '@playwright/test';
-import Utilitis from '../tests/Utilits/Utilitis.js';
+import {test} from '@playwright/test';
+import POManager from '../pageObjectModel/POManager.js';
  
+// test.describe.configure({ mode: 'parallel' });
 test.use({viewport : { width: 1366, height: 768 }});
-test('Assessment Auto save using QTL', async ({ page }) => {
+test(`@regression General History Free text Auto save using QTL`, async ({ page }) => {
     test.setTimeout(80000)
 
-    const medicalNote = new Utilitis();
-    await medicalNote.MedicalNoteNavigation(page);
+    const poManager = new POManager(page);
+    const loginPage = poManager.getLoginPage(page);
+    await loginPage.goToURL();
+    await loginPage.validLogin();
+    const MedicalRecordPage = poManager.getMedicalRecordPage(page);
+    await MedicalRecordPage.addMedicalNote();
 
     // Add General History from Side Sheet
     const generalhistoryLocator = page.locator(".patient-history-form-heading");
@@ -20,9 +25,6 @@ test('Assessment Auto save using QTL', async ({ page }) => {
     await page.getByText("Travel history").click();
     await page.getByText("Traveled outside the state").click();
     await page.getByText("Travels regularly").click();
-
-    
-
 
     await page.pause();
 

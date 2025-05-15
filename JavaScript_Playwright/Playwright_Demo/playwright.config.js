@@ -15,9 +15,10 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+  // retries: 2,    // Retry for failed tests
 
   use: {
-    trace: 'on-first-retry',  //ON, OFF
+    trace: 'retain-on-failure',  //ON, OFF
   },
 
   projects: [
@@ -27,6 +28,7 @@ export default defineConfig({
         ...devices['chrome'],
         headless: false,
         viewport: null,
+        screenshot: 'only-on-failure',
         launchOptions: {
           args: [
             '--start-maximized',

@@ -1,17 +1,19 @@
-import { test, expect } from '@playwright/test';
-import Utilitis from '../tests/Utilits/Utilitis.js';
+import {test, expect} from '@playwright/test';
+import POManager from '../pageObjectModel/POManager.js';
 
 async function login(page) {
   
-  const medicalNote = new Utilitis();
-  await medicalNote.MedicalNoteNavigation(page);
+    const poManager = new POManager(page);
+    const loginPage = poManager.getLoginPage(page);
+    await loginPage.goToURL();
+    await loginPage.validLogin();
+    const MedicalRecordPage = poManager.getMedicalRecordPage(page);
+    await MedicalRecordPage.addMedicalNote();
 
 }
 
 async function addAssessment(page) {
-  // // Scroll down the page
-  // await page.evaluate(() => window.scrollBy(0, window.innerHeight));
-  // console.log('Page scrolled down');
+
   
   // Wait for the assessment text and click
   const addAssessmentLocator = page.locator(`//h3[text()=' Add Assessment ']`);
@@ -53,7 +55,9 @@ async function openMedicalRecordTab(page) {
   await expect(grabbedTextContent).toContain(expectedContent);
 }
 
+test.use({viewport : { width: 1366, height: 768 }});
 test('Assessment Auto save using QTL', async ({ page }) => {
+  test.setTimeout(80000)
   await login(page);
 
   await addAssessment(page);

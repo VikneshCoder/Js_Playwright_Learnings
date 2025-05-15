@@ -1,12 +1,16 @@
-import { test} from '@playwright/test';
-import Utilitis from '../tests/Utilits/Utilitis.js';
+import {test} from '@playwright/test';
+import POManager from '../pageObjectModel/POManager.js';
  
  test.use({viewport : { width: 1366, height: 768 }});
-test('Assessment Auto save using QTL', async ({ page }) => {
+test('Auto Save Will not to be occur', async ({ page }) => {
     test.setTimeout(80000)
 
-    const medicalNote = new Utilitis();
-    await medicalNote.MedicalNoteNavigation(page);
+    const poManager = new POManager(page);
+    const loginPage = poManager.getLoginPage(page);
+    await loginPage.goToURL();
+    await loginPage.validLogin();
+    const MedicalRecordPage = poManager.getMedicalRecordPage(page);
+    await MedicalRecordPage.addMedicalNote();
      
     // Scroll down the page
     await page.evaluate(() => {

@@ -1,26 +1,28 @@
-import {test, request, expect} from '@playwright/test';
-import Utilitis from '../tests/Utilits/Utilitis.js';
-
+import {expect, test} from '@playwright/test';
+import POManager from '../pageObjectModel/POManager.js';
 
 
 test.use({viewport : { width: 1366, height: 768 }});
-test.only('Assessment Auto save using QTL', async ({ page }) => {
+test('Assessment Auto save using QTL', async ({ page }) => {
     test.setTimeout(100000)
 
-    // Create a new instance of the Utilitis class
-    const utilitis = new Utilitis(page);
-    await utilitis.MedicalNoteNavigation(page);
+    const poManager = new POManager(page);
+    const loginPage = poManager.getLoginPage(page);
+    await loginPage.goToURL();
+    await loginPage.validLogin();
+    const MedicalRecordPage = poManager.getMedicalRecordPage(page);
+    await MedicalRecordPage.addMedicalNote();
 
     // Add Physical Exam from Side Sheet
     const OverallConditionLocator = page.locator("#physicalExamSectionBtn0");
     const categories = ["Responsiveness", "Mentation", "Life stage", "Procedure reports"];
     const selections = [1, 2, 4];
 
-//     // Loop through each category and select the corresponding items
+    // Loop through each category and select the corresponding items
     for (const category of categories) {
-        await page.waitForTimeout(2000); // Adding a wait before clicking
+         // Adding a wait before clicking
         await OverallConditionLocator.click();
-        await page.waitForTimeout(2000); // Adding a wait
+        await page.waitForTimeout(1000); // Adding a wait
         await page.getByText(category).click();
         for (const index of selections) {
             const length = page.locator("//div[@class='tab-content-right physical-exam']/ul/li");
@@ -46,11 +48,12 @@ test.only('Assessment Auto save using QTL', async ({ page }) => {
         const element = page.locator(input.selector);
         await element.click();
         await element.fill(input.value);
+        let result = page.locator(input.selector).textContent();
         await page.locator(".add-circle.add-finding").click();
-    }
-
-    // Adding Head Findings with Add icon
-
-    
+        if (headInputs.selector != "input[id='str1,0']" & "div[id='fnd1,0,0']")  {
+            expect(result).toContain(input.value);
+        }
+    }    
+    console.log("Continuous load is not gets happening")
     await page.pause();
 });
