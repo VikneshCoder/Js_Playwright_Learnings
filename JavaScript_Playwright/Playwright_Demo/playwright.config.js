@@ -29,6 +29,7 @@ export default defineConfig({
         headless: false,
         viewport: null,
         screenshot: 'only-on-failure',
+        reporter: 'html',
         launchOptions: {
           args: [
             '--start-maximized',

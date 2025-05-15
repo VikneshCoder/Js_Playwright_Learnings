@@ -6,7 +6,7 @@ class MedicalRecordpage{
         this.loadState2 = page.waitForLoadState('domcontentloaded');
         this.addButton = page.locator(`//span[text()=' ADD ']`);
         this.addMedicalNoteButton = page.locator(`//button[text()=' Medical Note ']`);
-        this.existingNote = page.getByText(" A medical note for the current time already exists.");
+        this.existingNote = page.getByText(" A medical note for the current time already exists. ");
         this.addAnotherButton = page.getByRole('button', { name: ' Add Another ' });
         this.examNote = page.locator(`//span[text()='Exam Note']`);
 
@@ -21,9 +21,9 @@ class MedicalRecordpage{
         await expect(this.addMedicalNoteButton).toBeVisible();
         await this.addMedicalNoteButton.click();
 
-        const existingNote = await this.existingNote.isVisible();
-        if (existingNote) {
-            console.log(`Existing note is visible`);
+        const ExitingNote = await this.existingNote.isVisible();
+        console.log(`Existing note is visible: ${ExitingNote}`);
+        if (ExitingNote) {
             await this.addAnotherButton.click();
         }
     
