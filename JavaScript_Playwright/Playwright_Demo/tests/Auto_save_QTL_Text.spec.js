@@ -14,7 +14,6 @@ async function login(page) {
 
 async function addAssessment(page) {
 
-  
   // Wait for the assessment text and click
   const addAssessmentLocator = page.locator(`//h3[text()=' Add Assessment ']`);
   await expect(addAssessmentLocator).toBeVisible();

@@ -57,5 +57,3 @@ async validLogin(){
     }
 }
 module.exports = {LoginPage};
-
-// https://banfield-6001.qa2v2.voyager.marsvh.com/client-patient/client-search?entId=900001&bId=800002&ouId=c18c8e67-9606-7c63-9eed-71c33a9a4898 clinet

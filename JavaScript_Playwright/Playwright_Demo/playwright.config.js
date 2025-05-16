@@ -28,13 +28,12 @@ export default defineConfig({
       use: {
         ...devices['chrome'],
         headless: false,
-        viewport: null,
+        viewport: { width: 1024, height: 576 },
         screenshot: 'only-on-failure',
         reporter: 'html',
         storageState: 'storageState.json',
         launchOptions: {
           args: [
-            '--start-maximized',
             '--window-size=1366,768',
             '--force-device-scale-factor=0.75',  // Adjust the scale factor to 0.75 for 75% zoom
             '--high-dpi-support=1'
