@@ -13,10 +13,12 @@ class LoginPage{
         this.securityQuestionLocator = page.locator("a[aria-label='Select Security Question.']");
         this.securityInputLocator = page.locator(`//input[@name ='credentials.answer']`);
         this.securityEnterButton = page.locator(`//input[@data-type='save']`);
+        this.banfieldLocator = page.locator('a[routerlink="/dashboard"]').filter({hasText: 'Banfield'});
+        this.bu6001Locator = page.locator('div.ou-id').filter({hasText: '6001'});
     }
 
 async goToURL(){
-        await this.page.goto("https://banfield-6001.qa2v2.voyager.marsvh.com/medical-records/medical-history?entId=900001&bId=800002&ouId=c18c8e67-9606-7c63-9eed-71c33a9a4898&petId=6dafeb77-a2fb-445e-8232-ba75a3d81efb&patientId=99f59687-ba10-4d50-ad87-e06013a4a964&accountId=772e03ee-624c-425b-b474-3e973ac06ffa");
+        await this.page.goto("https://qa2v2.voyager.marsvh.com/");
         await this.loadState;
         await this.loadState2;
 }
@@ -42,7 +44,18 @@ async validLogin(){
         await this.securityInputLocator.fill(loginData.Security);
         await this.securityEnterButton.press('Enter');
         await this.loadState;
-}
+
+        await this.loadState2;
+        //Click on Banfield
+        await this.banfieldLocator.click();
+        await this.loadState2;
+        await this.bu6001Locator.click();
+        await this.loadState2;
+
+        await this.page.context().storageState({ path: 'storageState.json' });
+        console.log('session stored successfully');
+    }
 }
 module.exports = {LoginPage};
 
+// https://banfield-6001.qa2v2.voyager.marsvh.com/client-patient/client-search?entId=900001&bId=800002&ouId=c18c8e67-9606-7c63-9eed-71c33a9a4898 clinet

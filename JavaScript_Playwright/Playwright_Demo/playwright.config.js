@@ -6,6 +6,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  // globalSetup: './global-setup.js',
   timeout: 100000,
   expect: {
     timeout: 100000,
@@ -30,6 +31,7 @@ export default defineConfig({
         viewport: null,
         screenshot: 'only-on-failure',
         reporter: 'html',
+        storageState: 'storageState.json',
         launchOptions: {
           args: [
             '--start-maximized',

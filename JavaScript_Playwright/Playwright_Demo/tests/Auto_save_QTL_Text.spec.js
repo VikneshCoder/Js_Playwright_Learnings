@@ -4,9 +4,9 @@ import POManager from '../pageObjectModel/POManager.js';
 async function login(page) {
   
     const poManager = new POManager(page);
-    const loginPage = poManager.getLoginPage(page);
-    await loginPage.goToURL();
-    await loginPage.validLogin();
+    // const loginPage = poManager.getLoginPage(page);
+    // await loginPage.goToURL();
+    // await loginPage.validLogin();
     const MedicalRecordPage = poManager.getMedicalRecordPage(page);
     await MedicalRecordPage.addMedicalNote();
 
@@ -56,6 +56,7 @@ async function openMedicalRecordTab(page) {
 }
 
 test.use({viewport : { width: 1366, height: 768 }});
+test.use({ storageState: 'storageState.json' });
 test('Assessment Auto save using QTL', async ({ page }) => {
   test.setTimeout(80000)
   await login(page);

@@ -2,13 +2,14 @@ import {test} from '@playwright/test';
 import POManager from '../pageObjectModel/POManager.js';
 
 test.use({viewport : { width: 1366, height: 768 }});
+test.use({ storageState: 'storageState.json' });
 test('Auto save failed', async ({ page }) => {
     test.setTimeout(80000)
  
     const poManager = new POManager(page);
-    const loginPage = poManager.getLoginPage(page);
-    await loginPage.goToURL();
-    await loginPage.validLogin();
+    // const loginPage = poManager.getLoginPage(page);
+    // await loginPage.goToURL();
+    // await loginPage.validLogin();
     const MedicalRecordPage = poManager.getMedicalRecordPage(page);
     await MedicalRecordPage.addMedicalNote();
  

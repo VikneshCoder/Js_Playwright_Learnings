@@ -4,13 +4,14 @@ import { skip } from 'node:test';
  
 // test.describe.configure({ mode: 'parallel' });
 test.use({viewport : { width: 1366, height: 768 }});
-test.only(`General History Free text Auto save using QTL`, async ({ page }) => {
+test.use({ storageState: 'storageState.json' });
+test(`General History Free text Auto save using QTL`, async ({ page }) => {
     test.setTimeout(100000);
 
     const poManager = new POManager(page);
-    const loginPage = poManager.getLoginPage(page);
-    await loginPage.goToURL();
-    await loginPage.validLogin();
+    // const loginPage = poManager.getLoginPage(page);
+    // await loginPage.goToURL();
+    // await loginPage.validLogin();
     const MedicalRecordPage = poManager.getMedicalRecordPage(page);
     await MedicalRecordPage.addMedicalNote();
 
